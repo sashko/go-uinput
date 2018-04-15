@@ -1,6 +1,7 @@
 # go-uinput
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/sashko/go-uinput.svg?branch=master)](https://travis-ci.org/sashko/go-uinput)
 
 go-uinput is Go interface to Linux uinput kernel module that makes it possible to emulate input devices from userspace.
 
