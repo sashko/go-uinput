@@ -1,0 +1,11 @@
+language: go
+
+go:
+  - "1.10"
+
+dist: xenial
+sudo: required
+
+before_install:
+  - echo KERNEL=="uinput", MODE="0666" | sudo tee /etc/udev/rules.d/90-$USER.rules
+  - sudo udevadm trigger
