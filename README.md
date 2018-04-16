@@ -33,3 +33,27 @@ To build the package from sources, clone the repository and run
 Alternatively, use `go get` to obtain and install the package in your `$GOPATH`
 
     go get github.com/sashko/go-uinput
+
+## Usage
+
+The following example shows how to create a new virtual keyboard, and how to send a key press event.
+
+All the default imports and error handlers were removed for the sake of simplicity.
+
+```go
+func main() {
+	keyboard, err := uinput.CreateKeyboard()
+
+	defer keyboard.Close()
+
+	time.Sleep(time.Second * 1)
+
+	// Press left Shift key, press G, release Shift
+	keyboard.KeyDown(uinput.KeyLeftShift)
+	keyboard.KeyPress(uinput.KeyG)
+	keyboard.KeyUp(uinput.KeyLeftShift)
+
+	// Press O key
+	keyboard.KeyPress(uinput.KeyO)
+}
+```
