@@ -29,7 +29,7 @@ func setupTouchScreen(devFile *os.File, minX int32, maxX int32, minY int32, maxY
 	var uinp uinputUserDev
 
 	uinp.Name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
-	uinp.ID.BusType = BusUSB
+	uinp.ID.BusType = BusVirtual
 	uinp.ID.Vendor = 1
 	uinp.ID.Product = 2
 	uinp.ID.Version = 3

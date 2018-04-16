@@ -39,7 +39,7 @@ func setupKeyboard(devFile *os.File) error {
 
 	// TODO: add possibility to change those values
 	usetup.name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
-	usetup.id.BusType = BusUSB
+	usetup.id.BusType = BusVirtual
 	usetup.id.Vendor = 1
 	usetup.id.Product = 2
 	usetup.id.Version = 3
