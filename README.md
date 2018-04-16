@@ -22,3 +22,14 @@ or, which is a much more preferred option, add the udev rule to allow a user use
 
     echo KERNEL=="uinput", MODE="0666" | sudo tee /etc/udev/rules.d/90-$USER.rules
     sudo udevadm trigger
+
+## Installation
+
+To build the package from sources, clone the repository and run
+
+    go build
+    go install
+
+Alternatively, use `go get` to obtain and install the package in your `$GOPATH`
+
+    go get github.com/sashko/go-uinput
