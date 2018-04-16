@@ -50,7 +50,7 @@ func inputEventToBuffer(iev inputEvent) (buffer []byte, err error) {
 
 	err = binary.Write(buf, binary.LittleEndian, iev)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to write inputEvent to buffer: %v", err)
+		return nil, fmt.Errorf("Could not write inputEvent to buffer: %v", err)
 	}
 
 	return buf.Bytes(), nil
@@ -61,7 +61,7 @@ func uinputUserDevToBuffer(uud uinputUserDev) (buffer []byte, err error) {
 
 	err = binary.Write(buf, binary.LittleEndian, uud)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to write uinputUserDev to buffer: %v", err)
+		return nil, fmt.Errorf("Could not write uinputUserDev to buffer: %v", err)
 	}
 
 	return buf.Bytes(), nil

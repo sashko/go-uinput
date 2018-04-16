@@ -72,7 +72,7 @@ func setupTouchScreen(devFile *os.File, minX int32, maxX int32, minY int32, maxY
 	_, err = devFile.Write(buf)
 	if err != nil {
 		devFile.Close()
-		return fmt.Errorf("Failed to write uinputUserDev to device: %v", err)
+		return fmt.Errorf("Could not write uinputUserDev to device: %v", err)
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
