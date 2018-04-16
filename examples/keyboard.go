@@ -3,7 +3,7 @@ package main
 import "github.com/sashko/go-uinput"
 import "time"
 
-func main() {
+func keyboardExample() {
 	keyboard, err := uinput.CreateKeyboard()
 	if err != nil {
 		return
