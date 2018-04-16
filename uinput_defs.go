@@ -42,9 +42,20 @@ const (
 
 // Event types from input-event-codes.h
 const (
-	EvSyn = 0x00
-	EvKey = 0x01
-	EvRel = 0x02
+	EvSyn      = 0x00
+	EvKey      = 0x01
+	EvRel      = 0x02
+	EvAbs      = 0x03
+	EvMsc      = 0x04
+	EvSw       = 0x05
+	EvLed      = 0x11
+	EvSnd      = 0x12
+	EvRep      = 0x14
+	EvFf       = 0x15
+	EvPwr      = 0x16
+	EvFfStatus = 0x17
+	EvMax      = 0x1f
+	EvCnt      = EvMax + 1
 )
 
 // Synchronization events from input-event-codes.h
@@ -324,6 +335,74 @@ const (
 
 	KeyMax = 0x2ff
 	KeyCnt = KeyMax + 1
+
+	BtnDigi          = 0x140
+	BtnToolPen       = 0x140
+	BtnToolRubber    = 0x141
+	BtnToolBrush     = 0x142
+	BtnToolPencil    = 0x143
+	BtnToolAirBrush  = 0x144
+	BtnToolFinger    = 0x145
+	BtnToolMouse     = 0x146
+	BtnToolLens      = 0x147
+	BtnToolQuintTap  = 0x148 /* Five fingers on trackpad */
+	BtnTouch         = 0x14a
+	BtnStylus        = 0x14b
+	BtnStylus2       = 0x14c
+	BtnToolDoubleTap = 0x14d
+	BtnToolTripleTap = 0x14e
+	BtnToolQuadTap   = 0x14f /* Four fingers on trackpad */
+)
+
+// Absolute axes from input-event-codes.h
+const (
+	AbsX         = 0x00
+	AbsY         = 0x01
+	AbsZ         = 0x02
+	AbsRX        = 0x03
+	AbsRY        = 0x04
+	AbsRZ        = 0x05
+	AbsThrottle  = 0x06
+	AbsRudder    = 0x07
+	AbsWheel     = 0x08
+	AbsGas       = 0x09
+	AbsBrake     = 0x0a
+	AbsHat0X     = 0x10
+	AbsHat0Y     = 0x11
+	AbsHat1X     = 0x12
+	AbsHat1Y     = 0x13
+	AbsHat2X     = 0x14
+	AbsHat2Y     = 0x15
+	AbsHat3X     = 0x16
+	AbsHat3Y     = 0x17
+	AbsPressure  = 0x18
+	AbsDistance  = 0x19
+	AbsTiltX     = 0x1a
+	AbsTtiltY    = 0x1b
+	AbsToolWidth = 0x1c
+
+	AbsVolume = 0x20
+
+	AbsMisc = 0x28
+
+	AbsMtSlot        = 0x2f /* MT slot being modified */
+	AbsMtTouchMajor  = 0x30 /* Major axis of touching ellipse */
+	AbsMtTouchMinor  = 0x31 /* Minor axis (omit if circular) */
+	AbsMtWidthMajor  = 0x32 /* Major axis of approaching ellipse */
+	AbsMtWidthMinor  = 0x33 /* Minor axis (omit if circular) */
+	AbsMtOrientation = 0x34 /* Ellipse orientation */
+	AbsMtPositionX   = 0x35 /* Center X touch position */
+	AbsMtPositionY   = 0x36 /* Center Y touch position */
+	AbsMtTooLTypE    = 0x37 /* Type of touching device */
+	AbsMtBlobID      = 0x38 /* Group a set of packets as a blob */
+	AbsMtTrackingID  = 0x39 /* Unique ID of initiated contact */
+	AbsMtPressure    = 0x3a /* Pressure on contact area */
+	AbsMtDistance    = 0x3b /* Contact hover distance */
+	AbsMtToolX       = 0x3c /* Center X tool position */
+	AbsMtToolY       = 0x3d /* Center Y tool position */
+
+	AbsMax = 0x3f
+	AbsCnt = AbsMax + 1
 )
 
 // struct uinput_setup from uinput.h
@@ -335,10 +414,10 @@ type uinputSetup struct {
 
 // IOCTLs (0x00 - 0x7f) from input.h
 type inputID struct {
-	busType uint16
-	vendor  uint16
-	product uint16
-	version uint16
+	BusType uint16
+	Vendor  uint16
+	Product uint16
+	Version uint16
 }
 
 // The event structure from input.h
@@ -347,4 +426,15 @@ type inputEvent struct {
 	Type  uint16
 	Code  uint16
 	Value int32
+}
+
+// struct uinput_user_dev from uinput.h
+type uinputUserDev struct {
+	Name         [uinputMaxNameSize]byte
+	ID           inputID
+	FfEffectsMax uint32
+	AbsMax       [AbsCnt]int32
+	AbsMin       [AbsCnt]int32
+	AbsFuzz      [AbsCnt]int32
+	AbsFlat      [AbsCnt]int32
 }

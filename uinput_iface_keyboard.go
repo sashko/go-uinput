@@ -39,10 +39,10 @@ func setupKeyboard(devFile *os.File) error {
 
 	// TODO: add possibility to change those values
 	usetup.name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
-	usetup.id.busType = BusUSB
-	usetup.id.vendor = 1
-	usetup.id.product = 2
-	usetup.id.version = 3
+	usetup.id.BusType = BusUSB
+	usetup.id.Vendor = 1
+	usetup.id.Product = 2
+	usetup.id.Version = 3
 
 	err = ioctl(devFile, uiDevSetup, uintptr(unsafe.Pointer(&usetup)))
 	if err != nil {
@@ -108,33 +108,13 @@ func (vk vKeyboard) Close() error {
 	return destroyDevice(vk.devFile)
 }
 
-func emitKeyEvent(devFile *os.File, typ uint16, code uint16, value int32) error {
-	var ie inputEvent
-
-	ie.Type = typ
-	ie.Code = code
-	ie.Value = value
-
-	buf, err := inputEventToBuffer(ie)
-	if err != nil {
-		return fmt.Errorf("Could not write inputEvent to buffer: %v", err)
-	}
-
-	_, err = devFile.Write(buf)
-	if err != nil {
-		return fmt.Errorf("Could write to the device: %v", err)
-	}
-
-	return nil
-}
-
 func emitKeyDown(devFile *os.File, code uint16) error {
-	err := emitKeyEvent(devFile, EvKey, code, 1)
+	err := emitEvent(devFile, EvKey, code, 1)
 	if err != nil {
 		return fmt.Errorf("Could not emit key down event: %v", err)
 	}
 
-	err = emitKeyEvent(devFile, EvSyn, SynReport, 0)
+	err = emitEvent(devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("Could not emit sync event: %v", err)
 	}
@@ -143,12 +123,12 @@ func emitKeyDown(devFile *os.File, code uint16) error {
 }
 
 func emitKeyUp(devFile *os.File, code uint16) error {
-	err := emitKeyEvent(devFile, EvKey, code, 0)
+	err := emitEvent(devFile, EvKey, code, 0)
 	if err != nil {
 		return fmt.Errorf("Could not emit key up event: %v", err)
 	}
 
-	err = emitKeyEvent(devFile, EvSyn, SynReport, 0)
+	err = emitEvent(devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("Could not emit sync event: %v", err)
 	}
