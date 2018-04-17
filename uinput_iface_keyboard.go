@@ -69,6 +69,34 @@ err:
 	return err
 }
 
+func emitKeyDown(devFile *os.File, code uint16) error {
+	err := emitEvent(devFile, EvKey, code, 1)
+	if err != nil {
+		return fmt.Errorf("Could not emit key down event: %v", err)
+	}
+
+	err = emitEvent(devFile, EvSyn, SynReport, 0)
+	if err != nil {
+		return fmt.Errorf("Could not emit sync event: %v", err)
+	}
+
+	return err
+}
+
+func emitKeyUp(devFile *os.File, code uint16) error {
+	err := emitEvent(devFile, EvKey, code, 0)
+	if err != nil {
+		return fmt.Errorf("Could not emit key up event: %v", err)
+	}
+
+	err = emitEvent(devFile, EvSyn, SynReport, 0)
+	if err != nil {
+		return fmt.Errorf("Could not emit sync event: %v", err)
+	}
+
+	return err
+}
+
 // CreateKeyboard creates virtual input device that emulates keyboard
 func CreateKeyboard() (Keyboard, error) {
 	dev, err := openUinputDev()
@@ -114,32 +142,4 @@ func (vk vKeyboard) KeyUp(key uint16) error {
 
 func (vk vKeyboard) Close() error {
 	return destroyDevice(vk.devFile)
-}
-
-func emitKeyDown(devFile *os.File, code uint16) error {
-	err := emitEvent(devFile, EvKey, code, 1)
-	if err != nil {
-		return fmt.Errorf("Could not emit key down event: %v", err)
-	}
-
-	err = emitEvent(devFile, EvSyn, SynReport, 0)
-	if err != nil {
-		return fmt.Errorf("Could not emit sync event: %v", err)
-	}
-
-	return err
-}
-
-func emitKeyUp(devFile *os.File, code uint16) error {
-	err := emitEvent(devFile, EvKey, code, 0)
-	if err != nil {
-		return fmt.Errorf("Could not emit key up event: %v", err)
-	}
-
-	err = emitEvent(devFile, EvSyn, SynReport, 0)
-	if err != nil {
-		return fmt.Errorf("Could not emit sync event: %v", err)
-	}
-
-	return err
 }
