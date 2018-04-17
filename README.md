@@ -46,8 +46,6 @@ func main() {
 
 	defer keyboard.Close()
 
-	time.Sleep(time.Second * 1)
-
 	// Press left Shift key, press G, release Shift
 	keyboard.KeyDown(uinput.KeyLeftShift)
 	keyboard.KeyPress(uinput.KeyG)
