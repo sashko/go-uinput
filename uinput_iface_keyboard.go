@@ -73,15 +73,8 @@ func CreateKeyboard() (Keyboard, error) {
 }
 
 func (vk vKeyboard) KeyPress(key uint16) error {
-	err := emitKeyDown(vk.devFile, key)
-	if err != nil {
-		return err
-	}
-
-	err = emitKeyUp(vk.devFile, key)
-	if err != nil {
-		return err
-	}
+	err := vk.KeyDown(key)
+	err = vk.KeyUp(key)
 
 	return err
 }
