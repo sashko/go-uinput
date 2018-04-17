@@ -336,6 +336,27 @@ const (
 	KeyMax = 0x2ff
 	KeyCnt = KeyMax + 1
 
+	BtnMisc    = 0x100
+	Btn0       = 0x100
+	Btn1       = 0x101
+	Btn2       = 0x102
+	Btn3       = 0x103
+	Btn4       = 0x104
+	Btn5       = 0x105
+	Btn6       = 0x106
+	Btn7       = 0x107
+	Btn8       = 0x108
+	Btn9       = 0x109
+	BtnMouse   = 0x110
+	BtnLeft    = 0x110
+	BtnRight   = 0x111
+	BtnMiddle  = 0x112
+	BtnSide    = 0x113
+	BtnExtra   = 0x114
+	BtnForward = 0x115
+	BtnBack    = 0x116
+	BtnTask    = 0x117
+
 	BtnDigi          = 0x140
 	BtnToolPen       = 0x140
 	BtnToolRubber    = 0x141
@@ -352,6 +373,22 @@ const (
 	BtnToolDoubleTap = 0x14d
 	BtnToolTripleTap = 0x14e
 	BtnToolQuadTap   = 0x14f /* Four fingers on trackpad */
+)
+
+// Relative axes from input-event-codes.h#L354
+const (
+	RelX      = 0x00
+	RelY      = 0x01
+	RelZ      = 0x02
+	RelRx     = 0x03
+	RelRy     = 0x04
+	RelRz     = 0x05
+	RelHwheel = 0x06
+	RelDial   = 0x07
+	RelWheel  = 0x08
+	RelMisc   = 0x09
+	RelMax    = 0x0f
+	RelCnt    = (RelMax + 1)
 )
 
 // Absolute axes from input-event-codes.h
