@@ -69,7 +69,7 @@ err:
 	return err
 }
 
-// CreateKeyboard creates virtual keyboard
+// CreateKeyboard creates virtual input device that emulates keyboard
 func CreateKeyboard() (Keyboard, error) {
 	dev, err := openUinputDev()
 	if err != nil {
@@ -84,6 +84,7 @@ func CreateKeyboard() (Keyboard, error) {
 	return vKeyboard{devFile: dev}, err
 }
 
+// KeyPreess emits key press event
 func (vk vKeyboard) KeyPress(key uint16) error {
 	err := vk.KeyDown(key)
 	err = vk.KeyUp(key)
@@ -91,6 +92,7 @@ func (vk vKeyboard) KeyPress(key uint16) error {
 	return err
 }
 
+// KeyDown emits key down event
 func (vk vKeyboard) KeyDown(key uint16) error {
 	err := emitKeyDown(vk.devFile, key)
 	if err != nil {
@@ -100,6 +102,7 @@ func (vk vKeyboard) KeyDown(key uint16) error {
 	return err
 }
 
+// KeyUp emits key up event
 func (vk vKeyboard) KeyUp(key uint16) error {
 	err := emitKeyUp(vk.devFile, key)
 	if err != nil {

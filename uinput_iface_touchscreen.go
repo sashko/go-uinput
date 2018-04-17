@@ -89,7 +89,7 @@ err:
 	return err
 }
 
-// CreateTouchScreen creates virtual touch screen
+// CreateTouchScreen creates virtual input device that emulates touch screen
 func CreateTouchScreen(minX int32, maxX int32, minY int32, maxY int32) (TouchScreen, error) {
 	dev, err := openUinputDev()
 	if err != nil {
@@ -104,19 +104,23 @@ func CreateTouchScreen(minX int32, maxX int32, minY int32, maxY int32) (TouchScr
 	return vTouchScreen{devFile: dev}, err
 }
 
+// Touch emits touch event
 func (vts vTouchScreen) Touch(x int32, y int32) error {
 	err := emitEvent(vts.devFile, EvAbs, AbsMtPositionX, x)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
+
 	err = emitEvent(vts.devFile, EvAbs, AbsMtPositionY, y)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
+
 	err = emitEvent(vts.devFile, EvSyn, 2, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
+
 	err = emitEvent(vts.devFile, EvSyn, 0, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -126,6 +130,7 @@ func (vts vTouchScreen) Touch(x int32, y int32) error {
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
+
 	err = emitEvent(vts.devFile, EvSyn, 0, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)

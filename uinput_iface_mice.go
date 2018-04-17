@@ -115,6 +115,7 @@ err:
 	return err
 }
 
+// CreateMice creates virtual input device that emulates mice
 func CreateMice(minX int32, maxX int32, minY int32, maxY int32) (Mice, error) {
 	dev, err := openUinputDev()
 	if err != nil {
@@ -129,6 +130,7 @@ func CreateMice(minX int32, maxX int32, minY int32, maxY int32) (Mice, error) {
 	return vMice{devFile: dev}, err
 }
 
+// LeftPress emits left button press event
 func (vm vMice) LeftPress() error {
 	err := emitEvent(vm.devFile, EvKey, BtnLeft, 1)
 	if err != nil {
@@ -143,6 +145,7 @@ func (vm vMice) LeftPress() error {
 	return nil
 }
 
+// LeftRelease emits left button release event
 func (vm vMice) LeftRelease() error {
 	err := emitEvent(vm.devFile, EvKey, BtnLeft, 0)
 	if err != nil {
@@ -157,6 +160,7 @@ func (vm vMice) LeftRelease() error {
 	return nil
 }
 
+// LeftClick emits left button click event
 func (vm vMice) LeftClick() error {
 	err := vm.LeftPress()
 	err = vm.LeftRelease()
@@ -164,6 +168,7 @@ func (vm vMice) LeftClick() error {
 	return err
 }
 
+// RightPress emits right button press event
 func (vm vMice) RightPress() error {
 	err := emitEvent(vm.devFile, EvKey, BtnRight, 1)
 	if err != nil {
@@ -178,6 +183,7 @@ func (vm vMice) RightPress() error {
 	return nil
 }
 
+// RightPress emits right button release event
 func (vm vMice) RightRelease() error {
 	err := emitEvent(vm.devFile, EvKey, BtnRight, 0)
 	if err != nil {
@@ -192,6 +198,7 @@ func (vm vMice) RightRelease() error {
 	return nil
 }
 
+// RightClick emits right button click event
 func (vm vMice) RightClick() error {
 	err := vm.RightPress()
 	err = vm.RightRelease()
@@ -199,6 +206,7 @@ func (vm vMice) RightClick() error {
 	return err
 }
 
+// MoveX emits X axis movement event
 func (vm vMice) MoveX(x int32) error {
 	err := emitEvent(vm.devFile, EvRel, RelX, x)
 	if err != nil {
@@ -213,6 +221,7 @@ func (vm vMice) MoveX(x int32) error {
 	return nil
 }
 
+// MoveY emits Y axis movement event
 func (vm vMice) MoveY(x int32) error {
 	err := emitEvent(vm.devFile, EvRel, RelY, x)
 	if err != nil {
