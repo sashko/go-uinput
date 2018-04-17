@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 	"unsafe"
 )
 
@@ -53,6 +54,8 @@ func setupKeyboard(devFile *os.File) error {
 	if err != nil {
 		return fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
 	}
+
+	time.Sleep(time.Millisecond * 200)
 
 	return err
 }
