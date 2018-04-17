@@ -1,7 +1,6 @@
 package main
 
 import "github.com/sashko/go-uinput"
-import "time"
 
 func touchScreenExample() {
 	touchScreen, err := uinput.CreateTouchScreen(0, 1079, 0, 719)

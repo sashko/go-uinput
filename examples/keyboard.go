@@ -1,7 +1,6 @@
 package main
 
 import "github.com/sashko/go-uinput"
-import "time"
 
 func keyboardExample() {
 	keyboard, err := uinput.CreateKeyboard()
