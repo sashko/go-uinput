@@ -111,6 +111,7 @@ func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32)
 
 err:
 	destroyDevice(devFile)
+
 	return err
 }
 

@@ -19,13 +19,6 @@ type vTouchScreen struct {
 }
 
 func setupTouchScreen(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32) error {
-	err := ioctl(devFile, uiSetEvBit, uintptr(EvKey))
-	if err != nil {
-		destroyDevice(devFile)
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
-	}
-
 	var uinp uinputUserDev
 
 	uinp.Name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
@@ -39,49 +32,59 @@ func setupTouchScreen(devFile *os.File, minX int32, maxX int32, minY int32, maxY
 	uinp.AbsMin[AbsMtPositionY] = minY
 	uinp.AbsMax[AbsMtPositionY] = maxY
 
+	buf, err := uinputUserDevToBuffer(uinp)
+	if err != nil {
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetEvBit, uintptr(EvKey))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		goto err
+	}
+
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvAbs))
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnTouch))
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsMtPositionX))
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for X axis: %v", err)
+		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for X axis: %v", err)
+		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsMtPositionY))
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for Y axis: %v", err)
-	}
-
-	buf, err := uinputUserDevToBuffer(uinp)
-	if err != nil {
-		devFile.Close()
-		return err
+		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for Y axis: %v", err)
+		goto err
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not write uinputUserDev to device: %v", err)
+		err = fmt.Errorf("Could not write uinputUserDev to device: %v", err)
+		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
-		devFile.Close()
-		return fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		err = fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		goto err
 	}
 
 	time.Sleep(time.Millisecond * 200)
+
+	return nil
+
+err:
+	destroyDevice(devFile)
 
 	return err
 }

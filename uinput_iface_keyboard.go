@@ -24,18 +24,6 @@ type vKeyboard struct {
 }
 
 func setupKeyboard(devFile *os.File) error {
-	err := ioctl(devFile, uiSetEvBit, EvKey)
-	if err != nil {
-		return fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
-	}
-
-	for i := 0; i < KeyMax; i++ {
-		err = ioctl(devFile, uiSetKeyBit, uintptr(i))
-		if err != nil {
-			return fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
-		}
-	}
-
 	var usetup uinputSetup
 
 	// TODO: add possibility to change those values
@@ -45,17 +33,38 @@ func setupKeyboard(devFile *os.File) error {
 	usetup.id.Product = 2
 	usetup.id.Version = 3
 
+	err := ioctl(devFile, uiSetEvBit, EvKey)
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		goto err
+	}
+
+	for i := 0; i < KeyMax; i++ {
+		err = ioctl(devFile, uiSetKeyBit, uintptr(i))
+		if err != nil {
+			err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+			goto err
+		}
+	}
+
 	err = ioctl(devFile, uiDevSetup, uintptr(unsafe.Pointer(&usetup)))
 	if err != nil {
-		return fmt.Errorf("Could not perform UI_DEV_SETUP ioctl: %v", err)
+		err = fmt.Errorf("Could not perform UI_DEV_SETUP ioctl: %v", err)
+		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
-		return fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		err = fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		goto err
 	}
 
 	time.Sleep(time.Millisecond * 200)
+
+	return nil
+
+err:
+	destroyDevice(devFile)
 
 	return err
 }
