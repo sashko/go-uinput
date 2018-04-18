@@ -40,12 +40,12 @@ func TestVirtualMiceRightPressAndRelease(t *testing.T) {
 		t.Fatal("Failed to create virtual mice")
 	}
 
-	err = mice.LeftPress()
+	err = mice.RightPress()
 	if err != nil {
 		t.Fatal("Failed to emit right button press")
 	}
 
-	err = mice.LeftRelease()
+	err = mice.RightRelease()
 	if err != nil {
 		t.Fatal("Failed to emit right button release")
 	}
@@ -69,7 +69,7 @@ func TestVirtualMiceRightClick(t *testing.T) {
 		t.Fatal("Failed to create virtual mice")
 	}
 
-	err = mice.LeftClick()
+	err = mice.RightClick()
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
 	}
