@@ -75,6 +75,38 @@ func TestVirtualMiceRightClick(t *testing.T) {
 	}
 }
 
+func TestVirtualMiceExtraButtonsClick(t *testing.T) {
+	mice, err := CreateMice(0, 1079, 0, 719)
+	if err != nil {
+		t.Fatal("Failed to create virtual mice")
+	}
+
+	err = mice.MiddleClick()
+	if err != nil {
+		t.Fatal("Failed to emit middle button click")
+	}
+
+	err = mice.SideClick()
+	if err != nil {
+		t.Fatal("Failed to emit side button click")
+	}
+
+	err = mice.ExtraClick()
+	if err != nil {
+		t.Fatal("Failed to emit extra button click")
+	}
+
+	err = mice.ForwardClick()
+	if err != nil {
+		t.Fatal("Failed to emit forward button click")
+	}
+
+	err = mice.BackClick()
+	if err != nil {
+		t.Fatal("Failed to emit middle button click")
+	}
+}
+
 func TestVirtualMiceXYAxisMovement(t *testing.T) {
 	mice, err := CreateMice(0, 1079, 0, 719)
 	if err != nil {
