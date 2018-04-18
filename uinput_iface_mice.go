@@ -21,6 +21,16 @@ type Mice interface {
 
 	RightClick() error
 
+	MiddleClick() error
+
+	SideClick() error
+
+	ExtraClick() error
+
+	ForwardClick() error
+
+	BackClick() error
+
 	MoveX(x int32) error
 
 	MoveY(x int32) error
@@ -69,6 +79,36 @@ func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32)
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnRight))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnMiddle))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnSide))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnExtra))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnForward))
+	if err != nil {
+		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		goto err
+	}
+
+	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnBack))
 	if err != nil {
 		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
@@ -204,6 +244,131 @@ func (vm vMice) RightClick() error {
 	err = vm.RightRelease()
 
 	return err
+}
+
+// MiddleClick emits middle button click event
+func (vm vMice) MiddleClick() error {
+	err := emitEvent(vm.devFile, EvKey, BtnMiddle, 1)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvKey, BtnMiddle, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	return nil
+}
+
+// SideClick emits side button click event
+func (vm vMice) SideClick() error {
+	err := emitEvent(vm.devFile, EvKey, BtnSide, 1)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvKey, BtnSide, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	return nil
+}
+
+// ExtraClick emits extra button click event
+func (vm vMice) ExtraClick() error {
+	err := emitEvent(vm.devFile, EvKey, BtnExtra, 1)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvKey, BtnExtra, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	return nil
+}
+
+// ForwardClick emits forward button click event
+func (vm vMice) ForwardClick() error {
+	err := emitEvent(vm.devFile, EvKey, BtnForward, 1)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvKey, BtnForward, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	return nil
+}
+
+// BackClick emits back button click event
+func (vm vMice) BackClick() error {
+	err := emitEvent(vm.devFile, EvKey, BtnBack, 1)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvKey, BtnBack, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
+	return nil
 }
 
 // MoveX emits X axis movement event
