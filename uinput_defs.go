@@ -168,8 +168,8 @@ const (
 	KeyKpJpComma        = 95
 	KeyKpEnter          = 96
 	KeyRightCtrl        = 97
-	KeyKpslash          = 98
-	KeySysrq            = 99
+	KeyKpSlash          = 98
+	KeySysRq            = 99
 	KeyRightAlt         = 100
 	KeyLineFeed         = 101
 	KeyHome             = 102
@@ -301,9 +301,9 @@ const (
 
 	KeySwitchVideoMode = 227 /* Cycle between available video outputs (Monitor/LCD/TV-out/etc) */
 
-	KeyKbDillumToggle = 228
-	KeyKbDillumDown   = 229
-	KeyKbDillumUp     = 230
+	KeyKbdIllumToggle = 228
+	KeyKbdIllumDown   = 229
+	KeyKbdIllumUp     = 230
 
 	KeySend        = 231 /* AC Send */
 	KeyReply       = 232 /* AC Reply */
@@ -314,7 +314,7 @@ const (
 	KeyBattery = 236
 
 	KeyBluetooth = 237
-	KeyWlan      = 238
+	KeyWLan      = 238
 	KeyUwb       = 239
 
 	KeyUnknown = 240
@@ -328,7 +328,7 @@ const (
 	KeyDisplayOff     = 245 /* display device to off state */
 
 	KeyWwan   = 246 /* Wireless WAN (LTE, UMTS, GSM, etc.) */
-	KeyWimax  = KeyWwan
+	KeyWiMax  = KeyWwan
 	KeyRfKill = 247 /* Key that controls all radios */
 
 	KeyMicMute = 248 /* Mute / unmute the microphone */
@@ -383,7 +383,7 @@ const (
 	RelRx     = 0x03
 	RelRy     = 0x04
 	RelRz     = 0x05
-	RelHwheel = 0x06
+	RelHWheel = 0x06
 	RelDial   = 0x07
 	RelWheel  = 0x08
 	RelMisc   = 0x09
@@ -415,7 +415,7 @@ const (
 	AbsPressure  = 0x18
 	AbsDistance  = 0x19
 	AbsTiltX     = 0x1a
-	AbsTtiltY    = 0x1b
+	AbsTiltY     = 0x1b
 	AbsToolWidth = 0x1c
 
 	AbsVolume = 0x20
