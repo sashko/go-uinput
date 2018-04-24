@@ -31,7 +31,7 @@ func emitEvent(devFile *os.File, typ uint16, code uint16, value int32) error {
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		return fmt.Errorf("Could write inputEvent to device: %v", err)
+		return fmt.Errorf("Could not write inputEvent to device: %v", err)
 	}
 
 	return nil
