@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/sashko/go-uinput.svg?branch=master)](https://travis-ci.org/sashko/go-uinput)
 [![Coverage Status](https://coveralls.io/repos/github/sashko/go-uinput/badge.svg?branch=master)](https://coveralls.io/github/sashko/go-uinput?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sashko/go-uinput)](https://goreportcard.com/report/github.com/sashko/go-uinput)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsashko%2Fgo-uinput.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsashko%2Fgo-uinput?ref=badge_shield)
 
 go-uinput is Go interface to Linux uinput kernel module that makes it possible to emulate input devices from userspace.
 
@@ -56,3 +57,7 @@ func main() {
 	keyboard.KeyPress(uinput.KeyO)
 }
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsashko%2Fgo-uinput.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsashko%2Fgo-uinput?ref=badge_large)
