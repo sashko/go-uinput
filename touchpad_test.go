@@ -80,7 +80,7 @@ func TestVirtualTouchPadMoveTo(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
-	err = touchpad.MoveTo(100, 200)
+	err = touchPad.MoveTo(100, 200)
 	if err != nil {
 		t.Fatal("Failed to emit move to event")
 	}
