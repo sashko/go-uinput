@@ -51,7 +51,7 @@ func TestVirtualTouchPadRightPressAndRelease(t *testing.T) {
 }
 
 func TestVirtualTouchPadLeftClick(t *testing.T) {
-	touchPad, err := CreateMice(0, 1079, 0, 719)
+	touchPad, err := CreateTouchPad(0, 1079, 0, 719)
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
@@ -63,7 +63,7 @@ func TestVirtualTouchPadLeftClick(t *testing.T) {
 }
 
 func TestVirtualTouchPadRightClick(t *testing.T) {
-	touchPad, err := CreateMice(0, 1079, 0, 719)
+	touchPad, err := CreateTouchPad(0, 1079, 0, 719)
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
@@ -71,5 +71,17 @@ func TestVirtualTouchPadRightClick(t *testing.T) {
 	err = touchPad.RightClick()
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
+	}
+}
+
+func TestVirtualTouchPadMoveTo(t *testing.T) {
+	touchPad, err := CreateTouchPad(0, 1079, 0, 719)
+	if err != nil {
+		t.Fatal("Failed to create virtual touchpad")
+	}
+
+	err = touchpad.MoveTo(100, 200)
+	if err != nil {
+		t.Fatal("Failed to emit move to event")
 	}
 }
