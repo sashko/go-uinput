@@ -133,7 +133,7 @@ func TestVirtualMiceExtraButtonsClick(t *testing.T) {
 
 	err = mice.BackClick()
 	if err != nil {
-		t.Fatal("Failed to emit middle button click")
+		t.Fatal("Failed to emit back button click")
 	}
 
 	err = mice.Close()
