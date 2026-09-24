@@ -1,6 +1,7 @@
 package uinput
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"syscall"
@@ -18,8 +19,8 @@ func openUinputDev() (devFile *os.File, err error) {
 func destroyDevice(devFile *os.File) error {
 	err := ioctl(devFile, uiDevDestroy, uintptr(0))
 	if err != nil {
-		return fmt.Errorf("could not perform UI_DEV_DESTROY ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_DEV_DESTROY ioctl: %v", err)
 	}
 
-	return devFile.Close()
+	return errors.Join(err, devFile.Close())
 }
