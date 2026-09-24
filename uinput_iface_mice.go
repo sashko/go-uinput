@@ -203,9 +203,11 @@ func (vm vMice) LeftRelease() error {
 // LeftClick emits left button click event
 func (vm vMice) LeftClick() error {
 	err := vm.LeftPress()
-	err = vm.LeftRelease()
+	if err != nil {
+		return err
+	}
 
-	return err
+	return vm.LeftRelease()
 }
 
 // RightPress emits right button press event
@@ -241,9 +243,11 @@ func (vm vMice) RightRelease() error {
 // RightClick emits right button click event
 func (vm vMice) RightClick() error {
 	err := vm.RightPress()
-	err = vm.RightRelease()
+	if err != nil {
+		return err
+	}
 
-	return err
+	return vm.RightRelease()
 }
 
 // MiddleClick emits middle button click event

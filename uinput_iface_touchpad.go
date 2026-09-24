@@ -157,9 +157,11 @@ func (tp vTouchPad) LeftRelease() error {
 // LeftClick emits left button click event
 func (tp vTouchPad) LeftClick() error {
 	err := tp.LeftPress()
-	err = tp.LeftRelease()
+	if err != nil {
+		return err
+	}
 
-	return err
+	return tp.LeftRelease()
 }
 
 // RightPress emits right button press event
@@ -195,9 +197,11 @@ func (tp vTouchPad) RightRelease() error {
 // RightClick emits right button click event
 func (tp vTouchPad) RightClick() error {
 	err := tp.RightPress()
-	err = tp.RightRelease()
+	if err != nil {
+		return err
+	}
 
-	return err
+	return tp.RightRelease()
 }
 
 // MoveTo emits absolute pointer movement event

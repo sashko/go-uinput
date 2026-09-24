@@ -115,9 +115,11 @@ func CreateKeyboard() (Keyboard, error) {
 // KeyPress emits key press event
 func (vk vKeyboard) KeyPress(key uint16) error {
 	err := vk.KeyDown(key)
-	err = vk.KeyUp(key)
+	if err != nil {
+		return err
+	}
 
-	return err
+	return vk.KeyUp(key)
 }
 
 // KeyDown emits key down event
