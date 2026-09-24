@@ -177,7 +177,7 @@ func (vm vMice) LeftPress() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -192,7 +192,7 @@ func (vm vMice) LeftRelease() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -215,7 +215,7 @@ func (vm vMice) RightPress() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -230,7 +230,7 @@ func (vm vMice) RightRelease() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -253,7 +253,7 @@ func (vm vMice) MiddleClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -263,7 +263,7 @@ func (vm vMice) MiddleClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -278,7 +278,7 @@ func (vm vMice) SideClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -288,7 +288,7 @@ func (vm vMice) SideClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -303,7 +303,7 @@ func (vm vMice) ExtraClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -313,7 +313,7 @@ func (vm vMice) ExtraClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -328,7 +328,7 @@ func (vm vMice) ForwardClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -338,7 +338,7 @@ func (vm vMice) ForwardClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -353,7 +353,7 @@ func (vm vMice) BackClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -363,7 +363,7 @@ func (vm vMice) BackClick() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -378,7 +378,7 @@ func (vm vMice) MoveX(x int32) error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -393,7 +393,7 @@ func (vm vMice) MoveY(x int32) error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(vm.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(vm.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}

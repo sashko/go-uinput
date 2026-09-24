@@ -131,7 +131,7 @@ func (tp vTouchPad) LeftPress() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(tp.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(tp.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -146,7 +146,7 @@ func (tp vTouchPad) LeftRelease() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(tp.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(tp.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -169,7 +169,7 @@ func (tp vTouchPad) RightPress() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(tp.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(tp.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
@@ -184,7 +184,7 @@ func (tp vTouchPad) RightRelease() error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
-	err = emitEvent(tp.devFile, EvSyn, 0, SynReport)
+	err = emitEvent(tp.devFile, EvSyn, SynReport, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
