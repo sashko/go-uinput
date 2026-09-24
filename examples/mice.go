@@ -4,7 +4,7 @@ import "github.com/sashko/go-uinput"
 import "time"
 
 func miceExample() {
-	mice, err := uinput.CreateMice(0, 1919, 0, 1079)
+	mice, err := uinput.CreateMouse()
 	if err != nil {
 		return
 	}

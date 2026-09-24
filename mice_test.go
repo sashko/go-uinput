@@ -6,6 +6,18 @@ import (
 )
 
 func TestVirtualMiceCreation(t *testing.T) {
+	mice, err := CreateMouse()
+	if err != nil {
+		t.Fatal("Failed to create virtual mice")
+	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
+	}
+}
+
+func TestVirtualMiceDeprecatedCreation(t *testing.T) {
 	mice, err := CreateMice(0, 1079, 0, 719)
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
@@ -18,7 +30,7 @@ func TestVirtualMiceCreation(t *testing.T) {
 }
 
 func TestVirtualMiceLeftPressAndRelease(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
@@ -42,7 +54,7 @@ func TestVirtualMiceLeftPressAndRelease(t *testing.T) {
 }
 
 func TestVirtualMiceRightPressAndRelease(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
@@ -66,7 +78,7 @@ func TestVirtualMiceRightPressAndRelease(t *testing.T) {
 }
 
 func TestVirtualMiceLeftClick(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
@@ -85,7 +97,7 @@ func TestVirtualMiceLeftClick(t *testing.T) {
 }
 
 func TestVirtualMiceRightClick(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
@@ -104,7 +116,7 @@ func TestVirtualMiceRightClick(t *testing.T) {
 }
 
 func TestVirtualMiceExtraButtonsClick(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
@@ -143,7 +155,7 @@ func TestVirtualMiceExtraButtonsClick(t *testing.T) {
 }
 
 func TestVirtualMiceXYAxisMovement(t *testing.T) {
-	mice, err := CreateMice(0, 1079, 0, 719)
+	mice, err := CreateMouse()
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}

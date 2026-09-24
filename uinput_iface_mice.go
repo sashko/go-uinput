@@ -42,7 +42,7 @@ type vMice struct {
 	devFile *os.File
 }
 
-func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32) error {
+func setupMice(devFile *os.File) error {
 	var uinp uinputUserDev
 
 	uinp.Name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
@@ -50,15 +50,6 @@ func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32)
 	uinp.ID.Vendor = 1
 	uinp.ID.Product = 2
 	uinp.ID.Version = 3
-
-	uinp.AbsMin[AbsX] = minX
-	uinp.AbsMax[AbsX] = maxX
-	uinp.AbsFuzz[AbsX] = 0
-	uinp.AbsFlat[AbsX] = 0
-	uinp.AbsMin[AbsY] = minY
-	uinp.AbsMax[AbsY] = maxY
-	uinp.AbsFuzz[AbsY] = 0
-	uinp.AbsFlat[AbsY] = 0
 
 	buf, err := uinputUserDevToBuffer(uinp)
 	if err != nil {
@@ -155,19 +146,27 @@ err:
 	return err
 }
 
-// CreateMice creates virtual input device that emulates mice
-func CreateMice(minX int32, maxX int32, minY int32, maxY int32) (Mice, error) {
+// CreateMouse creates virtual input device that emulates mouse
+func CreateMouse() (Mice, error) {
 	dev, err := openUinputDev()
 	if err != nil {
 		return nil, err
 	}
 
-	err = setupMice(dev, minX, maxX, minY, maxY)
+	err = setupMice(dev)
 	if err != nil {
 		return nil, err
 	}
 
 	return vMice{devFile: dev}, err
+}
+
+// CreateMice creates virtual input device that emulates mice
+//
+// Deprecated: the range arguments have no effect, because the mouse reports
+// relative motion only. Use CreateMouse.
+func CreateMice(minX int32, maxX int32, minY int32, maxY int32) (Mice, error) {
+	return CreateMouse()
 }
 
 // LeftPress emits left button press event
