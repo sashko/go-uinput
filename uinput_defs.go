@@ -430,13 +430,16 @@ const (
 	AbsMtOrientation = 0x34 /* Ellipse orientation */
 	AbsMtPositionX   = 0x35 /* Center X touch position */
 	AbsMtPositionY   = 0x36 /* Center Y touch position */
-	AbsMtTooLTypE    = 0x37 /* Type of touching device */
+	AbsMtToolType    = 0x37 /* Type of touching device */
 	AbsMtBlobID      = 0x38 /* Group a set of packets as a blob */
 	AbsMtTrackingID  = 0x39 /* Unique ID of initiated contact */
 	AbsMtPressure    = 0x3a /* Pressure on contact area */
 	AbsMtDistance    = 0x3b /* Contact hover distance */
 	AbsMtToolX       = 0x3c /* Center X tool position */
 	AbsMtToolY       = 0x3d /* Center Y tool position */
+
+	// Deprecated: Use AbsMtToolType instead.
+	AbsMtTooLTypE = AbsMtToolType
 
 	AbsMax = 0x3f
 	AbsCnt = AbsMax + 1
