@@ -33,6 +33,11 @@ func TestVirtualTouchPadLeftPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit left button release")
 	}
+
+	err = touchPad.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual touchpad device")
+	}
 }
 
 func TestVirtualTouchPadRightPressAndRelease(t *testing.T) {
@@ -52,6 +57,11 @@ func TestVirtualTouchPadRightPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit right button release")
 	}
+
+	err = touchPad.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual touchpad device")
+	}
 }
 
 func TestVirtualTouchPadLeftClick(t *testing.T) {
@@ -65,6 +75,11 @@ func TestVirtualTouchPadLeftClick(t *testing.T) {
 	err = touchPad.LeftClick()
 	if err != nil {
 		t.Fatal("Failed to emit left button click")
+	}
+
+	err = touchPad.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual touchpad device")
 	}
 }
 
@@ -80,6 +95,11 @@ func TestVirtualTouchPadRightClick(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
 	}
+
+	err = touchPad.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual touchpad device")
+	}
 }
 
 func TestVirtualTouchPadMoveTo(t *testing.T) {
@@ -93,5 +113,10 @@ func TestVirtualTouchPadMoveTo(t *testing.T) {
 	err = touchPad.MoveTo(100, 200)
 	if err != nil {
 		t.Fatal("Failed to emit move to event")
+	}
+
+	err = touchPad.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual touchpad device")
 	}
 }

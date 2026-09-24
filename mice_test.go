@@ -34,6 +34,11 @@ func TestVirtualMiceLeftPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit left button release")
 	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
+	}
 }
 
 func TestVirtualMiceRightPressAndRelease(t *testing.T) {
@@ -53,6 +58,11 @@ func TestVirtualMiceRightPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit right button release")
 	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
+	}
 }
 
 func TestVirtualMiceLeftClick(t *testing.T) {
@@ -67,6 +77,11 @@ func TestVirtualMiceLeftClick(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to emit left button click")
 	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
+	}
 }
 
 func TestVirtualMiceRightClick(t *testing.T) {
@@ -80,6 +95,11 @@ func TestVirtualMiceRightClick(t *testing.T) {
 	err = mice.RightClick()
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
+	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
 	}
 }
 
@@ -114,6 +134,11 @@ func TestVirtualMiceExtraButtonsClick(t *testing.T) {
 	err = mice.BackClick()
 	if err != nil {
 		t.Fatal("Failed to emit middle button click")
+	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
 	}
 }
 
@@ -155,5 +180,10 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 			t.Fatal("Failed to move cursor up along the Y axis")
 		}
 		time.Sleep(time.Millisecond * 20)
+	}
+
+	err = mice.Close()
+	if err != nil {
+		t.Fatal("Failed to close virtual mice device")
 	}
 }
