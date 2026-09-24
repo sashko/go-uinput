@@ -123,13 +123,13 @@ func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32)
 
 	err = ioctl(devFile, uiSetRelBit, uintptr(RelX))
 	if err != nil {
-		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_RELBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetRelBit, uintptr(RelY))
 	if err != nil {
-		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_RELBIT ioctl: %v", err)
 		goto err
 	}
 
