@@ -136,7 +136,7 @@ func setupMice(devFile *os.File) error {
 		return fmt.Errorf("could not perform UI_DEV_CREATE ioctl: %v", err)
 	}
 
-	time.Sleep(time.Millisecond * 1000)
+	time.Sleep(time.Millisecond * 200)
 
 	return nil
 
