@@ -159,7 +159,7 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 	}
 
 	for i := 0; i <= 50; i++ {
-		mice.MoveY(int32(10))
+		err = mice.MoveY(int32(10))
 		if err != nil {
 			t.Fatal("Failed to move cursor down along the Y axis")
 		}
