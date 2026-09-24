@@ -8,6 +8,8 @@ func TestVirtualMouseCreation(t *testing.T) {
 		t.Fatal("Failed to create virtual mouse")
 	}
 
+	closeOnCleanup(t, mouse)
+
 	err = mouse.Close()
 	if err != nil {
 		t.Fatal("Failed to close virtual mouse device")
@@ -20,6 +22,8 @@ func TestVirtualMouseDeprecatedCreation(t *testing.T) {
 		t.Fatal("Failed to create virtual mouse")
 	}
 
+	closeOnCleanup(t, mouse)
+
 	err = mouse.Close()
 	if err != nil {
 		t.Fatal("Failed to close virtual mouse device")
@@ -31,6 +35,8 @@ func TestVirtualMouseLeftPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mouse")
 	}
+
+	closeOnCleanup(t, mouse)
 
 	grabDevice(t, mouse.(vMouse).devFile)
 
@@ -56,6 +62,8 @@ func TestVirtualMouseRightPressAndRelease(t *testing.T) {
 		t.Fatal("Failed to create virtual mouse")
 	}
 
+	closeOnCleanup(t, mouse)
+
 	grabDevice(t, mouse.(vMouse).devFile)
 
 	err = mouse.RightPress()
@@ -80,6 +88,8 @@ func TestVirtualMouseLeftClick(t *testing.T) {
 		t.Fatal("Failed to create virtual mouse")
 	}
 
+	closeOnCleanup(t, mouse)
+
 	grabDevice(t, mouse.(vMouse).devFile)
 
 	err = mouse.LeftClick()
@@ -99,6 +109,8 @@ func TestVirtualMouseRightClick(t *testing.T) {
 		t.Fatal("Failed to create virtual mouse")
 	}
 
+	closeOnCleanup(t, mouse)
+
 	grabDevice(t, mouse.(vMouse).devFile)
 
 	err = mouse.RightClick()
@@ -117,6 +129,8 @@ func TestVirtualMouseExtraButtonsClick(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mouse")
 	}
+
+	closeOnCleanup(t, mouse)
 
 	grabDevice(t, mouse.(vMouse).devFile)
 
@@ -156,6 +170,8 @@ func TestVirtualMouseXYAxisMovement(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mouse")
 	}
+
+	closeOnCleanup(t, mouse)
 
 	grabDevice(t, mouse.(vMouse).devFile)
 

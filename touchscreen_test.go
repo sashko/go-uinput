@@ -8,6 +8,8 @@ func TestVirtualTouchScreen(t *testing.T) {
 		t.Fatal("Failed to create virtual touchScreen")
 	}
 
+	closeOnCleanup(t, touchScreen)
+
 	grabDevice(t, touchScreen.(vTouchScreen).devFile)
 
 	for i := 0; i < 1000; i += 100 {

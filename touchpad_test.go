@@ -10,6 +10,8 @@ func TestTouchPadCreation(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	closeOnCleanup(t, touchPad)
+
 	err = touchPad.Close()
 	if err != nil {
 		t.Fatal("Failed to close virtual touchpad device")
@@ -21,6 +23,8 @@ func TestVirtualTouchPadLeftPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
+
+	closeOnCleanup(t, touchPad)
 
 	grabDevice(t, touchPad.(vTouchPad).devFile)
 
@@ -46,6 +50,8 @@ func TestVirtualTouchPadRightPressAndRelease(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	closeOnCleanup(t, touchPad)
+
 	grabDevice(t, touchPad.(vTouchPad).devFile)
 
 	err = touchPad.RightPress()
@@ -70,6 +76,8 @@ func TestVirtualTouchPadLeftClick(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	closeOnCleanup(t, touchPad)
+
 	grabDevice(t, touchPad.(vTouchPad).devFile)
 
 	err = touchPad.LeftClick()
@@ -89,6 +97,8 @@ func TestVirtualTouchPadRightClick(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	closeOnCleanup(t, touchPad)
+
 	grabDevice(t, touchPad.(vTouchPad).devFile)
 
 	err = touchPad.RightClick()
@@ -107,6 +117,8 @@ func TestVirtualTouchPadMoveTo(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
+
+	closeOnCleanup(t, touchPad)
 
 	grabDevice(t, touchPad.(vTouchPad).devFile)
 

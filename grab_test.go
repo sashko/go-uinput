@@ -2,6 +2,7 @@ package uinput
 
 import (
 	"bytes"
+	"io"
 	"os"
 	"path/filepath"
 	"testing"
@@ -62,4 +63,11 @@ func grabDevice(t *testing.T, devFile *os.File) {
 	}
 
 	t.Cleanup(func() { evFile.Close() })
+}
+
+// closeOnCleanup destroys dev even if the test stops early.
+func closeOnCleanup(t *testing.T, dev io.Closer) {
+	t.Helper()
+
+	t.Cleanup(func() { dev.Close() })
 }
