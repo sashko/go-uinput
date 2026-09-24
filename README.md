@@ -13,13 +13,24 @@ First, the system must have the `uinput` kernel module loaded
 
     sudo modprobe -i uinput
 
-Second, the `/dev/uinput` device is owned by root, and therefore its default permissions must either be changed using chmod
+Second, the `/dev/uinput` device is owned by root, so a regular user needs access to it.
 
-    sudo chmod 666 /dev/uinput
+Note that any process with access to `/dev/uinput` can inject keystrokes and pointer events into every session on the system, including a root terminal. Grant access only to the users who need it, and never make the device world-writable (`chmod 666` or `MODE="0666"`).
 
-or, which is much preferred, add the udev rule to allow a user to use the device
+The preferred way is a udev rule that grants access to the user logged in at the local seat
 
-    echo KERNEL=="uinput", MODE="0666" | sudo tee /etc/udev/rules.d/90-$USER.rules
+    echo 'KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/60-uinput.rules
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger
+
+The rule file name must sort before `73-seat-late.rules`, which applies the `uaccess` tag.
+
+For users without a local session, such as services or SSH logins, use a dedicated group instead, then log out and back in
+
+    sudo groupadd --system uinput
+    sudo usermod -aG uinput $USER
+    echo 'KERNEL=="uinput", SUBSYSTEM=="misc", GROUP="uinput", MODE="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/60-uinput.rules
+    sudo udevadm control --reload-rules
     sudo udevadm trigger
 
 ## Installation
