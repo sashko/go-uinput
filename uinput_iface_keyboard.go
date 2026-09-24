@@ -35,27 +35,27 @@ func setupKeyboard(devFile *os.File) error {
 
 	err := ioctl(devFile, uiSetEvBit, EvKey)
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	for i := 0; i < KeyMax; i++ {
 		err = ioctl(devFile, uiSetKeyBit, uintptr(i))
 		if err != nil {
-			err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+			err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 			goto err
 		}
 	}
 
 	err = ioctl(devFile, uiDevSetup, uintptr(unsafe.Pointer(&usetup)))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_DEV_SETUP ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_DEV_SETUP ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_DEV_CREATE ioctl: %v", err)
 		goto err
 	}
 
@@ -72,12 +72,12 @@ err:
 func emitKeyDown(devFile *os.File, code uint16) error {
 	err := emitEvent(devFile, EvKey, code, 1)
 	if err != nil {
-		return fmt.Errorf("Could not emit key down event: %v", err)
+		return fmt.Errorf("could not emit key down event: %v", err)
 	}
 
 	err = emitEvent(devFile, EvSyn, SynReport, 0)
 	if err != nil {
-		return fmt.Errorf("Could not emit sync event: %v", err)
+		return fmt.Errorf("could not emit sync event: %v", err)
 	}
 
 	return err
@@ -86,12 +86,12 @@ func emitKeyDown(devFile *os.File, code uint16) error {
 func emitKeyUp(devFile *os.File, code uint16) error {
 	err := emitEvent(devFile, EvKey, code, 0)
 	if err != nil {
-		return fmt.Errorf("Could not emit key up event: %v", err)
+		return fmt.Errorf("could not emit key up event: %v", err)
 	}
 
 	err = emitEvent(devFile, EvSyn, SynReport, 0)
 	if err != nil {
-		return fmt.Errorf("Could not emit sync event: %v", err)
+		return fmt.Errorf("could not emit sync event: %v", err)
 	}
 
 	return err
@@ -112,7 +112,7 @@ func CreateKeyboard() (Keyboard, error) {
 	return vKeyboard{devFile: dev}, err
 }
 
-// KeyPreess emits key press event
+// KeyPress emits key press event
 func (vk vKeyboard) KeyPress(key uint16) error {
 	err := vk.KeyDown(key)
 	err = vk.KeyUp(key)
@@ -140,6 +140,7 @@ func (vk vKeyboard) KeyUp(key uint16) error {
 	return err
 }
 
+// Close destroys the virtual input device
 func (vk vKeyboard) Close() error {
 	return destroyDevice(vk.devFile)
 }

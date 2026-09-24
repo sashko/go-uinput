@@ -68,81 +68,81 @@ func setupMice(devFile *os.File, minX int32, maxX int32, minY int32, maxY int32)
 	// register left and right buttons click events
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvKey))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnLeft))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnRight))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnMiddle))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnSide))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnExtra))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnForward))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnBack))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	// setup relative axes
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvRel))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetRelBit, uintptr(RelX))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetRelBit, uintptr(RelY))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		err = fmt.Errorf("Could not write uinputUserDev to device: %v", err)
+		err = fmt.Errorf("could not write uinputUserDev to device: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
 		devFile.Close()
-		return fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		return fmt.Errorf("could not perform UI_DEV_CREATE ioctl: %v", err)
 	}
 
 	time.Sleep(time.Millisecond * 1000)
@@ -223,7 +223,7 @@ func (vm vMice) RightPress() error {
 	return nil
 }
 
-// RightPress emits right button release event
+// RightRelease emits right button release event
 func (vm vMice) RightRelease() error {
 	err := emitEvent(vm.devFile, EvKey, BtnRight, 0)
 	if err != nil {
@@ -401,6 +401,7 @@ func (vm vMice) MoveY(x int32) error {
 	return nil
 }
 
+// Close destroys the virtual input device
 func (vm vMice) Close() error {
 	return destroyDevice(vm.devFile)
 }

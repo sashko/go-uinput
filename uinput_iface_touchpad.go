@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// TouchPad interface
 type TouchPad interface {
 	LeftPress() error
 
@@ -51,51 +52,51 @@ func setupTouchPad(devFile *os.File, minX int32, maxX int32, minY int32, maxY in
 	// register left and right buttons click events
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvKey))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnLeft))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnRight))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	// setup absolute axes
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvAbs))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsX))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_ABSBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsY))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_ABSBIT ioctl: %v", err)
 		goto err
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		err = fmt.Errorf("Could not write uinputUserDev to device: %v", err)
+		err = fmt.Errorf("could not write uinputUserDev to device: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
 		devFile.Close()
-		return fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		return fmt.Errorf("could not perform UI_DEV_CREATE ioctl: %v", err)
 	}
 
 	time.Sleep(time.Millisecond * 200)
@@ -108,6 +109,7 @@ err:
 	return err
 }
 
+// CreateTouchPad creates virtual input device that emulates touch pad
 func CreateTouchPad(minX int32, maxX int32, minY int32, maxY int32) (TouchPad, error) {
 	dev, err := openUinputDev()
 	if err != nil {
@@ -175,7 +177,7 @@ func (tp vTouchPad) RightPress() error {
 	return nil
 }
 
-// RightPress emits right button release event
+// RightRelease emits right button release event
 func (tp vTouchPad) RightRelease() error {
 	err := emitEvent(tp.devFile, EvKey, BtnRight, 0)
 	if err != nil {
@@ -198,6 +200,7 @@ func (tp vTouchPad) RightClick() error {
 	return err
 }
 
+// MoveTo emits absolute pointer movement event
 func (tp vTouchPad) MoveTo(x int32, y int32) error {
 	err := emitAbsEvent(tp.devFile, x, y)
 	if err != nil {
@@ -207,6 +210,7 @@ func (tp vTouchPad) MoveTo(x int32, y int32) error {
 	return nil
 }
 
+// Close destroys the virtual input device
 func (tp vTouchPad) Close() error {
 	return destroyDevice(tp.devFile)
 }

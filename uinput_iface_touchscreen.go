@@ -39,43 +39,43 @@ func setupTouchScreen(devFile *os.File, minX int32, maxX int32, minY int32, maxY
 
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvKey))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetEvBit, uintptr(EvAbs))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_EVBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_EVBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetKeyBit, uintptr(BtnTouch))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_KEYBIT ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_KEYBIT ioctl: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsMtPositionX))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for X axis: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_ABSBIT ioctl for X axis: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiSetAbsBit, uintptr(AbsMtPositionY))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_SET_ABSBIT ioctl for Y axis: %v", err)
+		err = fmt.Errorf("could not perform UI_SET_ABSBIT ioctl for Y axis: %v", err)
 		goto err
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		err = fmt.Errorf("Could not write uinputUserDev to device: %v", err)
+		err = fmt.Errorf("could not write uinputUserDev to device: %v", err)
 		goto err
 	}
 
 	err = ioctl(devFile, uiDevCreate, uintptr(0))
 	if err != nil {
-		err = fmt.Errorf("Could not perform UI_DEV_CREATE ioctl: %v", err)
+		err = fmt.Errorf("could not perform UI_DEV_CREATE ioctl: %v", err)
 		goto err
 	}
 
@@ -139,6 +139,7 @@ func (vts vTouchScreen) Touch(x int32, y int32) error {
 	return nil
 }
 
+// Close destroys the virtual input device
 func (vts vTouchScreen) Close() error {
 	return destroyDevice(vts.devFile)
 }

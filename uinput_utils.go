@@ -26,12 +26,12 @@ func emitEvent(devFile *os.File, typ uint16, code uint16, value int32) error {
 
 	buf, err := inputEventToBuffer(ie)
 	if err != nil {
-		return fmt.Errorf("Could not write inputEvent to buffer: %v", err)
+		return fmt.Errorf("could not write inputEvent to buffer: %v", err)
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		return fmt.Errorf("Could not write inputEvent to device: %v", err)
+		return fmt.Errorf("could not write inputEvent to device: %v", err)
 	}
 
 	return nil
@@ -49,22 +49,22 @@ func emitAbsEvent(devFile *os.File, xPos int32, yPos int32) error {
 
 	buf, err := inputEventToBuffer(ie[0])
 	if err != nil {
-		return fmt.Errorf("Could not write inputEvent[0] to buffer: %v", err)
+		return fmt.Errorf("could not write inputEvent[0] to buffer: %v", err)
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		return fmt.Errorf("Could write inputEvent[0] to device: %v", err)
+		return fmt.Errorf("could not write inputEvent[0] to device: %v", err)
 	}
 
 	buf, err = inputEventToBuffer(ie[1])
 	if err != nil {
-		return fmt.Errorf("Could not write inputEvent[1] to buffer: %v", err)
+		return fmt.Errorf("could not write inputEvent[1] to buffer: %v", err)
 	}
 
 	_, err = devFile.Write(buf)
 	if err != nil {
-		return fmt.Errorf("Could write inputEvent[1] to device: %v", err)
+		return fmt.Errorf("could not write inputEvent[1] to device: %v", err)
 	}
 
 	return nil
@@ -83,7 +83,7 @@ func inputEventToBuffer(iev inputEvent) (buffer []byte, err error) {
 
 	err = binary.Write(buf, binary.LittleEndian, iev)
 	if err != nil {
-		return nil, fmt.Errorf("Could not write inputEvent to buffer: %v", err)
+		return nil, fmt.Errorf("could not write inputEvent to buffer: %v", err)
 	}
 
 	return buf.Bytes(), nil
@@ -94,7 +94,7 @@ func uinputUserDevToBuffer(uud uinputUserDev) (buffer []byte, err error) {
 
 	err = binary.Write(buf, binary.LittleEndian, uud)
 	if err != nil {
-		return nil, fmt.Errorf("Could not write uinputUserDev to buffer: %v", err)
+		return nil, fmt.Errorf("could not write uinputUserDev to buffer: %v", err)
 	}
 
 	return buf.Bytes(), nil
