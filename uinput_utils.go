@@ -95,7 +95,7 @@ func uinputSetupNameToBytes(name []byte) (uinputName [uinputMaxNameSize]byte) {
 func inputEventToBuffer(iev inputEvent) (buffer []byte, err error) {
 	buf := new(bytes.Buffer)
 
-	err = binary.Write(buf, binary.LittleEndian, iev)
+	err = binary.Write(buf, binary.NativeEndian, iev)
 	if err != nil {
 		return nil, fmt.Errorf("could not write inputEvent to buffer: %v", err)
 	}
@@ -106,7 +106,7 @@ func inputEventToBuffer(iev inputEvent) (buffer []byte, err error) {
 func uinputUserDevToBuffer(uud uinputUserDev) (buffer []byte, err error) {
 	buf := new(bytes.Buffer)
 
-	err = binary.Write(buf, binary.LittleEndian, uud)
+	err = binary.Write(buf, binary.NativeEndian, uud)
 	if err != nil {
 		return nil, fmt.Errorf("could not write uinputUserDev to buffer: %v", err)
 	}
