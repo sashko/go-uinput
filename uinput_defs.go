@@ -33,11 +33,14 @@ const (
 	IDVersion = 3
 
 	BusPCI       = 0x01
-	BusISANPN    = 0x02
+	BusISAPNP    = 0x02
 	BusUSB       = 0x03
 	BusHIL       = 0x04
 	BusBluetooth = 0x05
 	BusVirtual   = 0x06
+
+	// Deprecated: Use BusISAPNP instead.
+	BusISANPN = BusISAPNP
 )
 
 // Event types from input-event-codes.h
