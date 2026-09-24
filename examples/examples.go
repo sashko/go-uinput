@@ -2,7 +2,7 @@ package main
 
 func main() {
 	//keyboardExample()
-	//miceExample()
+	//mouseExample()
 	//touchPadExample()
 	//touchScreenExample()
 }

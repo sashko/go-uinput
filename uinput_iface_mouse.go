@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// Mice interface
-type Mice interface {
+// Mouse interface
+type Mouse interface {
 	LeftPress() error
 
 	LeftRelease() error
@@ -38,11 +38,16 @@ type Mice interface {
 	io.Closer
 }
 
-type vMice struct {
+// Mice is the former name of Mouse.
+//
+// Deprecated: use Mouse.
+type Mice = Mouse
+
+type vMouse struct {
 	devFile *os.File
 }
 
-func setupMice(devFile *os.File) error {
+func setupMouse(devFile *os.File) error {
 	var uinp uinputUserDev
 
 	uinp.Name = uinputSetupNameToBytes([]byte("GoUinputDevice"))
@@ -147,18 +152,18 @@ err:
 }
 
 // CreateMouse creates virtual input device that emulates mouse
-func CreateMouse() (Mice, error) {
+func CreateMouse() (Mouse, error) {
 	dev, err := openUinputDev()
 	if err != nil {
 		return nil, err
 	}
 
-	err = setupMice(dev)
+	err = setupMouse(dev)
 	if err != nil {
 		return nil, err
 	}
 
-	return vMice{devFile: dev}, err
+	return vMouse{devFile: dev}, err
 }
 
 // CreateMice creates virtual input device that emulates mice
@@ -170,7 +175,7 @@ func CreateMice(minX int32, maxX int32, minY int32, maxY int32) (Mice, error) {
 }
 
 // LeftPress emits left button press event
-func (vm vMice) LeftPress() error {
+func (vm vMouse) LeftPress() error {
 	err := emitEvent(vm.devFile, EvKey, BtnLeft, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -185,7 +190,7 @@ func (vm vMice) LeftPress() error {
 }
 
 // LeftRelease emits left button release event
-func (vm vMice) LeftRelease() error {
+func (vm vMouse) LeftRelease() error {
 	err := emitEvent(vm.devFile, EvKey, BtnLeft, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -200,7 +205,7 @@ func (vm vMice) LeftRelease() error {
 }
 
 // LeftClick emits left button click event
-func (vm vMice) LeftClick() error {
+func (vm vMouse) LeftClick() error {
 	err := vm.LeftPress()
 	if err != nil {
 		return err
@@ -210,7 +215,7 @@ func (vm vMice) LeftClick() error {
 }
 
 // RightPress emits right button press event
-func (vm vMice) RightPress() error {
+func (vm vMouse) RightPress() error {
 	err := emitEvent(vm.devFile, EvKey, BtnRight, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -225,7 +230,7 @@ func (vm vMice) RightPress() error {
 }
 
 // RightRelease emits right button release event
-func (vm vMice) RightRelease() error {
+func (vm vMouse) RightRelease() error {
 	err := emitEvent(vm.devFile, EvKey, BtnRight, 0)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -240,7 +245,7 @@ func (vm vMice) RightRelease() error {
 }
 
 // RightClick emits right button click event
-func (vm vMice) RightClick() error {
+func (vm vMouse) RightClick() error {
 	err := vm.RightPress()
 	if err != nil {
 		return err
@@ -250,7 +255,7 @@ func (vm vMice) RightClick() error {
 }
 
 // MiddleClick emits middle button click event
-func (vm vMice) MiddleClick() error {
+func (vm vMouse) MiddleClick() error {
 	err := emitEvent(vm.devFile, EvKey, BtnMiddle, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -275,7 +280,7 @@ func (vm vMice) MiddleClick() error {
 }
 
 // SideClick emits side button click event
-func (vm vMice) SideClick() error {
+func (vm vMouse) SideClick() error {
 	err := emitEvent(vm.devFile, EvKey, BtnSide, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -300,7 +305,7 @@ func (vm vMice) SideClick() error {
 }
 
 // ExtraClick emits extra button click event
-func (vm vMice) ExtraClick() error {
+func (vm vMouse) ExtraClick() error {
 	err := emitEvent(vm.devFile, EvKey, BtnExtra, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -325,7 +330,7 @@ func (vm vMice) ExtraClick() error {
 }
 
 // ForwardClick emits forward button click event
-func (vm vMice) ForwardClick() error {
+func (vm vMouse) ForwardClick() error {
 	err := emitEvent(vm.devFile, EvKey, BtnForward, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -350,7 +355,7 @@ func (vm vMice) ForwardClick() error {
 }
 
 // BackClick emits back button click event
-func (vm vMice) BackClick() error {
+func (vm vMouse) BackClick() error {
 	err := emitEvent(vm.devFile, EvKey, BtnBack, 1)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -375,7 +380,7 @@ func (vm vMice) BackClick() error {
 }
 
 // MoveX emits X axis movement event
-func (vm vMice) MoveX(x int32) error {
+func (vm vMouse) MoveX(x int32) error {
 	err := emitEvent(vm.devFile, EvRel, RelX, x)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -390,7 +395,7 @@ func (vm vMice) MoveX(x int32) error {
 }
 
 // MoveY emits Y axis movement event
-func (vm vMice) MoveY(x int32) error {
+func (vm vMouse) MoveY(x int32) error {
 	err := emitEvent(vm.devFile, EvRel, RelY, x)
 	if err != nil {
 		return fmt.Errorf("emitEvent: %v", err)
@@ -405,6 +410,6 @@ func (vm vMice) MoveY(x int32) error {
 }
 
 // Close destroys the virtual input device
-func (vm vMice) Close() error {
+func (vm vMouse) Close() error {
 	return destroyDevice(vm.devFile)
 }

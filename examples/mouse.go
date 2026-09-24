@@ -3,28 +3,28 @@ package main
 import "github.com/sashko/go-uinput"
 import "time"
 
-func miceExample() {
-	mice, err := uinput.CreateMouse()
+func mouseExample() {
+	mouse, err := uinput.CreateMouse()
 	if err != nil {
 		return
 	}
-	defer mice.Close()
+	defer mouse.Close()
 
 	// draw a 500x500px square
 	for i := 0; i <= 50; i++ {
-		mice.MoveX(int32(10))
+		mouse.MoveX(int32(10))
 		time.Sleep(time.Millisecond * 20)
 	}
 	for i := 0; i <= 50; i++ {
-		mice.MoveY(int32(10))
+		mouse.MoveY(int32(10))
 		time.Sleep(time.Millisecond * 20)
 	}
 	for i := 0; i <= 50; i++ {
-		mice.MoveX(int32(-10))
+		mouse.MoveX(int32(-10))
 		time.Sleep(time.Millisecond * 20)
 	}
 	for i := 0; i <= 50; i++ {
-		mice.MoveY(int32(-10))
+		mouse.MoveY(int32(-10))
 		time.Sleep(time.Millisecond * 20)
 	}
 }
