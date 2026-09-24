@@ -194,7 +194,7 @@ const (
 
 	KeyKpComma   = 121
 	KeyHangeul   = 122
-	KeyHanja     = KeyHangeul
+	KeyHanja     = 123
 	KeyYen       = 124
 	KeyLeftMeta  = 125
 	KeyRightMeta = 126
