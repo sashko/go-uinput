@@ -6,10 +6,24 @@ import (
 	"fmt"
 	"os"
 	"syscall"
+	"unsafe"
 )
 
 func ioctl(df *os.File, op, arg uintptr) error {
 	_, _, err := syscall.Syscall(syscall.SYS_IOCTL, df.Fd(), op, arg)
+	if err != 0 {
+		return syscall.Errno(err)
+	}
+
+	return nil
+}
+
+// ioctlPtr is ioctl for requests that take a pointer argument. The pointer
+// is converted to uintptr in the syscall.Syscall call itself, which is the
+// only form that keeps the pointed-to memory alive and in place during the
+// call.
+func ioctlPtr(df *os.File, op uintptr, arg unsafe.Pointer) error {
+	_, _, err := syscall.Syscall(syscall.SYS_IOCTL, df.Fd(), op, uintptr(arg))
 	if err != 0 {
 		return syscall.Errno(err)
 	}

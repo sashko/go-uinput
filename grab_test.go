@@ -26,7 +26,7 @@ func grabDevice(t *testing.T, devFile *os.File) {
 
 	var sysname [64]byte
 
-	err := ioctl(devFile, uiGetSysname, uintptr(unsafe.Pointer(&sysname[0])))
+	err := ioctlPtr(devFile, uiGetSysname, unsafe.Pointer(&sysname[0]))
 	if err != nil {
 		t.Fatalf("Failed to get sysname of virtual device: %v", err)
 	}

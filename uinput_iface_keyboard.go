@@ -47,7 +47,7 @@ func setupKeyboard(devFile *os.File) error {
 		}
 	}
 
-	err = ioctl(devFile, uiDevSetup, uintptr(unsafe.Pointer(&usetup)))
+	err = ioctlPtr(devFile, uiDevSetup, unsafe.Pointer(&usetup))
 	if err != nil {
 		err = fmt.Errorf("could not perform UI_DEV_SETUP ioctl: %v", err)
 		goto err
