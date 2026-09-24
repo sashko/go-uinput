@@ -22,6 +22,8 @@ func TestVirtualTouchPadLeftPressAndRelease(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	grabDevice(t, touchPad.(vTouchPad).devFile)
+
 	err = touchPad.LeftPress()
 	if err != nil {
 		t.Fatal("Failed to emit left button press")
@@ -38,6 +40,8 @@ func TestVirtualTouchPadRightPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
+
+	grabDevice(t, touchPad.(vTouchPad).devFile)
 
 	err = touchPad.RightPress()
 	if err != nil {
@@ -56,6 +60,8 @@ func TestVirtualTouchPadLeftClick(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	grabDevice(t, touchPad.(vTouchPad).devFile)
+
 	err = touchPad.LeftClick()
 	if err != nil {
 		t.Fatal("Failed to emit left button click")
@@ -68,6 +74,8 @@ func TestVirtualTouchPadRightClick(t *testing.T) {
 		t.Fatal("Failed to create virtual touchpad")
 	}
 
+	grabDevice(t, touchPad.(vTouchPad).devFile)
+
 	err = touchPad.RightClick()
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
@@ -79,6 +87,8 @@ func TestVirtualTouchPadMoveTo(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual touchpad")
 	}
+
+	grabDevice(t, touchPad.(vTouchPad).devFile)
 
 	err = touchPad.MoveTo(100, 200)
 	if err != nil {

@@ -8,6 +8,8 @@ func TestVirtualKeyboard(t *testing.T) {
 		t.Fatal("Failed to create virtual keyboard")
 	}
 
+	grabDevice(t, keyboard.(vKeyboard).devFile)
+
 	for i := 0; i < KeyMax; i++ {
 		err = keyboard.KeyPress(uint16(i))
 		if err != nil {

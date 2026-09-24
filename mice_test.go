@@ -23,6 +23,8 @@ func TestVirtualMiceLeftPressAndRelease(t *testing.T) {
 		t.Fatal("Failed to create virtual mice")
 	}
 
+	grabDevice(t, mice.(vMice).devFile)
+
 	err = mice.LeftPress()
 	if err != nil {
 		t.Fatal("Failed to emit left button press")
@@ -39,6 +41,8 @@ func TestVirtualMiceRightPressAndRelease(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
+
+	grabDevice(t, mice.(vMice).devFile)
 
 	err = mice.RightPress()
 	if err != nil {
@@ -57,6 +61,8 @@ func TestVirtualMiceLeftClick(t *testing.T) {
 		t.Fatal("Failed to create virtual mice")
 	}
 
+	grabDevice(t, mice.(vMice).devFile)
+
 	err = mice.LeftClick()
 	if err != nil {
 		t.Fatal("Failed to emit left button click")
@@ -69,6 +75,8 @@ func TestVirtualMiceRightClick(t *testing.T) {
 		t.Fatal("Failed to create virtual mice")
 	}
 
+	grabDevice(t, mice.(vMice).devFile)
+
 	err = mice.RightClick()
 	if err != nil {
 		t.Fatal("Failed to emit right button click")
@@ -80,6 +88,8 @@ func TestVirtualMiceExtraButtonsClick(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
+
+	grabDevice(t, mice.(vMice).devFile)
 
 	err = mice.MiddleClick()
 	if err != nil {
@@ -112,6 +122,8 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create virtual mice")
 	}
+
+	grabDevice(t, mice.(vMice).devFile)
 
 	for i := 0; i <= 50; i++ {
 		err = mice.MoveX(int32(10))
