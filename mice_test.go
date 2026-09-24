@@ -1,9 +1,6 @@
 package uinput
 
-import (
-	"testing"
-	"time"
-)
+import "testing"
 
 func TestVirtualMiceCreation(t *testing.T) {
 	mice, err := CreateMouse()
@@ -167,7 +164,6 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 		if err != nil {
 			t.Fatal("Failed to move cursor to the right along the x axis")
 		}
-		time.Sleep(time.Millisecond * 5)
 	}
 
 	for i := 0; i <= 50; i++ {
@@ -175,7 +171,6 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 		if err != nil {
 			t.Fatal("Failed to move cursor down along the Y axis")
 		}
-		time.Sleep(time.Millisecond * 20)
 	}
 
 	for i := 0; i <= 50; i++ {
@@ -183,7 +178,6 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 		if err != nil {
 			t.Fatal("Failed to move cursor to the left along the x axis")
 		}
-		time.Sleep(time.Millisecond * 20)
 	}
 
 	for i := 0; i <= 50; i++ {
@@ -191,7 +185,6 @@ func TestVirtualMiceXYAxisMovement(t *testing.T) {
 		if err != nil {
 			t.Fatal("Failed to move cursor up along the Y axis")
 		}
-		time.Sleep(time.Millisecond * 20)
 	}
 
 	err = mice.Close()

@@ -1,9 +1,6 @@
 package uinput
 
-import (
-	"testing"
-	"time"
-)
+import "testing"
 
 func TestVirtualTouchScreen(t *testing.T) {
 	touchScreen, err := CreateTouchScreen(0, 1079, 0, 719)
@@ -19,8 +16,6 @@ func TestVirtualTouchScreen(t *testing.T) {
 			if err != nil {
 				t.Fatal("Failed to touch screen")
 			}
-
-			time.Sleep(time.Millisecond * 200)
 		}
 	}
 
