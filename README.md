@@ -1,45 +1,44 @@
 # go-uinput
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/sashko/go-uinput.svg?branch=master)](https://travis-ci.org/sashko/go-uinput)
 [![Coverage Status](https://coveralls.io/repos/github/sashko/go-uinput/badge.svg?branch=master)](https://coveralls.io/github/sashko/go-uinput?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/sashko/go-uinput)](https://goreportcard.com/report/github.com/sashko/go-uinput)
 
-go-uinput is Go interface to Linux uinput kernel module that makes it possible to emulate input devices from userspace.
+go-uinput is a Go interface to the Linux uinput kernel module that makes it possible to emulate input devices from userspace.
 
-The interface aims to make it dead simple to create virtual input devices, e.g. keyboard, joystick, or mice for generating arbitrary input events programmatically.
+The interface makes it easy to create virtual input devices, such as keyboards, joysticks, or mice, to generate arbitrary input events programmatically.
 
 ## System prerequisites
 
-First, the system must have `uinput` kernel module loaded.
+First, the system must have the `uinput` kernel module loaded
 
     sudo modprobe -i uinput
 
-Second, `/dev/uinput` device is owned by root and therefore its default permissions must either be changed using chmod
+Second, the `/dev/uinput` device is owned by root, and therefore its default permissions must either be changed using chmod
 
     sudo chmod 666 /dev/uinput
 
-or, which is a much more preferred option, add the udev rule to allow a user use the device
+or, which is much preferred, add the udev rule to allow a user to use the device
 
     echo KERNEL=="uinput", MODE="0666" | sudo tee /etc/udev/rules.d/90-$USER.rules
     sudo udevadm trigger
 
 ## Installation
 
-To build the package from sources, clone the repository and run
+go-uinput requires Go 1.22 or later. To add it to your module, run
 
-    go build
-    go install
+    go get github.com/sashko/go-uinput@latest
 
-Alternatively, use `go get` to obtain and install the package in your `$GOPATH`
+and import it as
 
-    go get github.com/sashko/go-uinput
+```go
+import "github.com/sashko/go-uinput"
+```
 
 ## Usage
 
-The following example shows how to create a new virtual keyboard, and how to send a key press event.
+The following example shows how to create a new virtual keyboard and how to send a key press event.
 
-All the default imports and error handlers were removed for the sake of simplicity.
+For simplicity, we removed all default imports and error handlers.
 
 ```go
 func main() {
