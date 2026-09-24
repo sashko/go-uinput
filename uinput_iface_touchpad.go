@@ -207,6 +207,11 @@ func (tp vTouchPad) MoveTo(x int32, y int32) error {
 		return fmt.Errorf("emitEvent: %v", err)
 	}
 
+	err = emitEvent(tp.devFile, EvSyn, SynReport, 0)
+	if err != nil {
+		return fmt.Errorf("emitEvent: %v", err)
+	}
+
 	return nil
 }
 
