@@ -11,7 +11,7 @@ The interface makes it easy to create virtual input devices, such as keyboards, 
 
 First, the system must have the `uinput` kernel module loaded
 
-    sudo modprobe -i uinput
+    sudo modprobe uinput
 
 Second, the `/dev/uinput` device is owned by root, so a regular user needs access to it.
 
