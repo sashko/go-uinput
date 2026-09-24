@@ -1,6 +1,9 @@
 package uinput
 
-import "syscall"
+import (
+	"syscall"
+	"unsafe"
+)
 
 const uinputDevPath = "/dev/uinput"
 
@@ -20,7 +23,7 @@ const (
 	uiSetLedBit  = 0x40045569
 	uiSetSndBit  = 0x4004556a
 	uiSetFfBit   = 0x4004556b
-	uiSetPhys    = 0x4004556c
+	uiSetPhys    = 0x4000556c | unsafe.Sizeof(uintptr(0))<<16 // _IOW with sizeof(char *)
 	uiSetSwBit   = 0x4004556d
 	uiSetPropBit = 0x4004556e
 )
